@@ -280,6 +280,7 @@ if($MainMenuFlags -band [MainMenuFlags]::UPDATE_HEKATE) {
     Get-Item -Path (Join-Path $PWD "$Dir\bootloader") | Copy-Item -Destination $DrivePath -Force
 
     $HekateBin = Get-ChildItem -Path (Join-Path $PWD $Dir) -File | Where-Object { $_.Name -like "hekate*.bin" }
+    $HekateBin = $HekateBin | Copy-Item -Destination (Split-Path $HekateBin.DirectoryName -Parent) -Force -PassThru
     if($ConfigMenuFlags -band [ConfigMenuFlags]::UPDATE_REBOOT_PAYLOAD) {
         Write-Output "Updating /atmosphere/reboot_payload.bin to Hekate .bin"
         $HekateBin | Copy-Item -Destination (Join-Path $DrivePath "atmosphere/reboot_payload.bin") -Force
@@ -287,6 +288,7 @@ if($MainMenuFlags -band [MainMenuFlags]::UPDATE_HEKATE) {
     
     Write-Output "Cleaning up local directory"
     Remove-Item -Path (Join-Path $PWD $Dir) -Recurse -Force
+    Remove-Item -Path $Hekate.name -Force
 
     Write-Output "Hekate update finished!"
     Write-Output "$($HekateBin.name) is here, if needed:"
