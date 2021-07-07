@@ -277,7 +277,7 @@ if($MainMenuFlags -band [MainMenuFlags]::UPDATE_HEKATE) {
     Expand-Archive -Path $($Hekate.name) -DestinationPath (Join-Path $PWD $Dir) -Force
 
     Write-Output "Copying files to SD card"
-    Get-Item -Path (Join-Path $PWD "$Dir\bootloader") | Copy-Item -Destination $DrivePath -Force
+    Get-Item -Path (Join-Path $PWD "$Dir\bootloader") | Copy-Item -Destination $DrivePath -Recurse -Force
 
     $HekateBin = Get-ChildItem -Path (Join-Path $PWD $Dir) -File | Where-Object { $_.Name -like "hekate*.bin" }
     $HekateBin = $HekateBin | Copy-Item -Destination (Split-Path $HekateBin.DirectoryName -Parent) -Force -PassThru
