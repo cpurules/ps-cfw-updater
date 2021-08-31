@@ -205,7 +205,12 @@ if($MainMenuFlags -band [MainMenuFlags]::UPDATE_ATMOSPHERE) {
         $RemovePaths = @("switch", "sept", "atmosphere", "hbmenu.nro") | ForEach-Object { Join-Path $DrivePath $_ }
         foreach($Path in $RemovePaths) {
             Write-Output "- $Path"
-            Remove-Item -Path $Path -Recurse -Force
+            if((Test-Path $Path)) {
+                Remove-Item -Path $Path -Recurse -Force
+            }
+            else {
+                Write-Output "Path not found, skipping"
+            }
         }
     }
     else {
@@ -221,7 +226,9 @@ if($MainMenuFlags -band [MainMenuFlags]::UPDATE_ATMOSPHERE) {
         }
         $AmsToRemove = Get-ChildItem -Path (Join-Path $DrivePath "atmosphere") -Exclude $Exclusions
         $AmsToRemove | Remove-Item -Recurse -Force
-        Remove-Item -Path (Join-Path $DrivePath "sept") -Recurse -Force
+        if((Test-Path (Join-Path $DrivePath "sept"))) {
+            Remove-Item -Path (Join-Path $DrivePath "sept") -Recurse -Force
+        }
         Remove-Item -Path (Join-Path $DrivePath "hbmenu.nro") -Force
     }
     Write-Output "Checking for latest Atmosphere release"
