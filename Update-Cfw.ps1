@@ -236,11 +236,11 @@ if($MainMenuFlags -band [MainMenuFlags]::UPDATE_ATMOSPHERE) {
     Write-Output "Latest version: $($AmsRelease.tag_name)"
     
     $AmsFiles = $AmsRelease.assets
-    $Fusee = $AmsFiles | Where-Object { $_.name -eq "fusee-primary.bin" }
-    Write-Output "Downloading fusee-primary.bin to current directory..."
+    $Fusee = $AmsFiles | Where-Object { $_.name -eq "fusee.bin" }
+    Write-Output "Downloading fusee.bin to current directory..."
     Invoke-WebRequest -Uri $Fusee.browser_download_url -OutFile $Fusee.name
     
-    $Ams = $AmsFiles | Where-Object { $_.name -like "atmosphere*.zip" -and $_.name -notlike "*WITHOUT_MESOSPHERE*" }
+    $Ams = $AmsFiles | Where-Object { $_.name -like "atmosphere*.zip" }
     Write-Output "Downloading $($Ams.name) to current directory"
     Invoke-WebRequest -Uri $Ams.browser_download_url -OutFile $Ams.name
 
@@ -256,8 +256,8 @@ if($MainMenuFlags -band [MainMenuFlags]::UPDATE_ATMOSPHERE) {
     Remove-Item -Path $Ams.name
 
     Write-Output "Atmosphere update finished!"
-    Write-Output "fusee-primary.bin is here, if needed:"
-    Write-Output (Join-Path $PWD "fusee-primary.bin")
+    Write-Output "fusee.bin is here, if needed:"
+    Write-Output (Join-Path $PWD "fusee.bin")
     Write-Output ""
 }
 if($MainMenuFlags -band [MainMenuFlags]::UPDATE_HEKATE) {
