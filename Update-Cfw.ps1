@@ -226,7 +226,7 @@ if($MainMenuFlags -band [MainMenuFlags]::UPDATE_ATMOSPHERE) {
         }
         $AmsToRemove = Get-ChildItem -Path (Join-Path $DrivePath "atmosphere") -Exclude $Exclusions
         $AmsToRemove | Remove-Item -Recurse -Force
-        if((Test-Path (Join-Path $DrivePath "sept"))) {
+        if((Test-Path (Join-Path $DrivePath "sept"))) { # As of 0.20.0, sept is no longer used
             Remove-Item -Path (Join-Path $DrivePath "sept") -Recurse -Force
         }
         Remove-Item -Path (Join-Path $DrivePath "hbmenu.nro") -Force
