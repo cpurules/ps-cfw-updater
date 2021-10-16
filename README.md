@@ -1,5 +1,5 @@
 # ps-cfw-updater
-PowerShell script to update Hekate and Atmosphere installations on CFW Switch SD cards
+PowerShell script to update Hekate and Atmosphere installations on CFW Switch SD cards.  You will need to have your SD card connected to your computer, either via an SD card reader or mounted via the USB cable (using UMS or memloader).
 
 Usage (Windows): `powershell.exe -file Update-Cfw.ps1` and follow the prompts
 
